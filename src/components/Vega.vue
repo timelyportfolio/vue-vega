@@ -13,12 +13,30 @@ export default {
     },
     renderer: {
       default: 'svg'
+    },
+    width: {
+      default: null
+    },
+    height: {
+      default: null
+    },
+    padding: {
+      default: null
+    },
+    background: {
+      default: null
     }
   },
   data: () => {
     return {
       view: {}
     }
+  },
+  mounted: function() {
+    this.view = this.createView(this.spec);
+  },
+  beforeDestroy: function() {
+    this.view.finalize()
   },
   watch: {
     spec: {
@@ -27,9 +45,6 @@ export default {
       },
       deep: true
     }
-  },
-  mounted: function() {
-    this.view = this.createView(this.spec);
   },
   methods: {
     createView: function(spec) {
