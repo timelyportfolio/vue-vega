@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
+    <a href="https://github.com/timelyportfolio/vue-vega">Github</a>
     <h3>SVG <a href="https://github.com/kristw/react-vega/blob/master/demo/src/vega/spec1.js">(spec1)</a></h3>
     <Vega :spec="spec1"></Vega>
     <h3>Canvas <a href="https://github.com/kristw/react-vega/blob/master/demo/src/vega/spec2.js">(spec2)</a></h3>
