@@ -25,6 +25,9 @@ export default {
     },
     background: {
       default: null
+    },
+    hover: {
+      default: 'hover'
     }
   },
   data: () => {
@@ -52,6 +55,7 @@ export default {
         const runtime = vega.parse(spec);
         const view = new vega.View(runtime)
           .renderer(this.renderer)
+          .hover(this.hover)
           .initialize(this.$el);
 
         view.run();
