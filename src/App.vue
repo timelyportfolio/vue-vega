@@ -17,8 +17,8 @@
         <Vega :spec="spec3" renderer="canvas"></Vega>
       </div>
       <div style="flex:1;">
-        <h3>Updating Spec</h3>
-        <Vega :spec="spec4" renderer="canvas"></Vega>
+        <h3>View Props and Updating Spec</h3>
+        <Vega :spec="spec4" renderer="canvas" height=100 width=250 background="#cdf"></Vega>
       </div>
     </div>
   </div>

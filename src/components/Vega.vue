@@ -14,6 +14,16 @@ export default {
     renderer: {
       default: 'svg'
     },
+    autosize: {
+      type: Object,
+      default: () => {
+        return {
+          type: 'pad',
+          contains: 'padding',
+          autosize: true
+        }
+      }
+    },
     width: {
       default: null
     },
@@ -33,13 +43,15 @@ export default {
   data: () => {
     return {
       view: {}
-    }
+    };
   },
   mounted: function() {
     this.view = this.createView(this.spec);
   },
   beforeDestroy: function() {
-    this.view.finalize()
+    // not sure if this works as expected
+    //   but based on Vega docs seems like the right way to handle
+    this.view.finalize();
   },
   watch: {
     spec: {
@@ -51,12 +63,33 @@ export default {
   },
   methods: {
     createView: function(spec) {
+      // very destructive way to rerender and not taking advantage of Vega DataFlow
+      //  but for now we will go with this
+
+      // should I view.finalize before re-render
+            // if no spec finalize and destroy view
+      if(this.view && this.view.finalize) {
+        this.view.finalize()
+      }
+
       if(spec) {
         const runtime = vega.parse(spec);
         const view = new vega.View(runtime)
           .renderer(this.renderer)
           .hover(this.hover)
           .initialize(this.$el);
+
+        ['renderer', 'padding', 'width', 'height', 'padding', 'background', 'hover'].forEach( (setting) => {
+          if(this[setting]) {
+            try {
+              view[setting](this[setting])
+            } catch(e) {
+              console.log('trouble applying setting to vega view', e);
+            }
+          }
+        })
+        
+        view.initialize(this.$el);
 
         view.run();
 
