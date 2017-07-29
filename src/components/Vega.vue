@@ -79,7 +79,7 @@ export default {
           .hover(this.hover)
           .initialize(this.$el);
 
-        ['renderer', 'padding', 'width', 'height', 'padding', 'background', 'hover'].forEach( (setting) => {
+        ['renderer', 'autosize', 'padding', 'width', 'height', 'padding', 'background', 'hover'].forEach( (setting) => {
           if(this[setting]) {
             try {
               view[setting](this[setting])
@@ -91,9 +91,19 @@ export default {
         
         view.initialize(this.$el);
 
+        this.addSignalEmitter(spec, view);
+
         view.run();
 
         return view;
+      }
+    },
+    addSignalEmitter: function(spec, view) {
+      debugger;
+      if(view && spec && spec.signals.length > 0) {
+        spec.signals.forEach(signal => {
+          view.addSignalListener(signal.name, (name,value) => this.$emit(name,value) )
+        })
       }
     }
   }

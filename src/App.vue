@@ -4,7 +4,7 @@
     <div style="display:flex;">
       <div style="flex:1;">
         <h3>SVG <a href="https://github.com/kristw/react-vega/blob/master/demo/src/vega/spec1.js">(spec1)</a></h3>
-        <Vega :spec="spec1"></Vega>
+        <Vega :spec="spec1" @tooltip="logEvent"></Vega>
       </div>
       <div style="flex:1;">
         <h3>Canvas <a href="https://github.com/kristw/react-vega/blob/master/demo/src/vega/spec2.js">(spec2)</a></h3>
@@ -51,6 +51,11 @@ export default {
       spec2: spec2,
       spec3: spec3,
       spec4: spec4
+    }
+  },
+  methods: {
+    logEvent: function(name, value) {
+      console.log(name,value);
     }
   }
 }
